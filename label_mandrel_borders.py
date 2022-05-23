@@ -28,7 +28,8 @@ def _load_image(folder, image):
     image_record = image
     loaded = False
     while not loaded:
-        ### Problem: always shows 'Error loading...' 2022.05.23
+        ### Problem: always shows 'Error loading...' 
+        ### cv2.cvtColor() returns None  2022.05.23
         try:
             image = cv2.imread(os.path.join(
                 PATH_IMAGES, folder, image + '.png'))
