@@ -8,8 +8,8 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-PATH_LABELS_FILE = 'labels.json'
-PATH_IMAGES = 'Y:\\Data\\2022-04-28\\Data\\Images'  # TODO
+PATH_LABELS_FILE = 'labels_reduced.json'
+PATH_IMAGES = '\\\\os.lsdf.kit.edu\\itiv-projects\\Stents4Tomorrow\\Data\\2022-04-28\\Data\\Images'  # TODO
 
 
 def _get_labels():
@@ -72,18 +72,18 @@ def label_borders():
     starting = datetime.now()
     global image_counter
     global labels
-    labels = _get_labels()
-    num_labels = _get_num_entries(labels)
+    labels = _get_labels()   # "labels" is json data
+    num_labels = _get_num_entries(labels)   # number of all images from selected folders in JSON
 
     index = 0
     control_dict = dict()
     for folder in labels.keys():
-        for image_nr in labels[folder].keys():
+        for image_nr in labels[folder].keys():   # the name/number of image
             index += 1
             if labels[folder][image_nr] is not None:
                 continue
             image_counter += 1
-            image = _load_image(folder, image_nr)
+            image = _load_image(folder, image_nr)   # one folder each time 
             control_dict['finished'] = False
             control_dict['skip'] = False
             control_dict['x1'] = None
@@ -97,7 +97,7 @@ def label_borders():
             sec_per_img = (t - starting).seconds / image_counter
             remaining = ((num_labels - index) * sec_per_img) / 3600
 
-            while not control_dict['finished']:
+            while not control_dict['finished']:   # keep running before 'finished'
                 plt.close()
                 fig = plt.figure()
                 plt.title(
@@ -107,7 +107,7 @@ def label_borders():
                         round(sec_per_img, 2),
                         round(remaining, 2)
                     ))
-                height, width, channels = image.shape
+                height, width, channels = image.shape   # "image" is used here
                 control_dict['height'] = height
                 control_dict['width'] = width
                 plt.imshow(image, interpolation='none')
@@ -122,7 +122,7 @@ def label_borders():
                     if event.key == 'e':
                         plt.close()
                         print('Exiting..')
-                        save_dict(labels)
+                        save_dict(labels)   # save until exiting!!!
                         sys.exit(0)
                     elif event.key == 'r':
                         plt.close()
@@ -141,7 +141,7 @@ def label_borders():
                             control_dict['finished'] = True
                             control_dict['x1'] = None
                             control_dict['x2'] = None
-                    elif event.key == 'f':
+                    elif event.key == 'f':   # always change the x2, not the latest double clicked => I should choose x1 first
                         plt.close()
                         if control_dict['x2'] is not None:
                             control_dict['x2'] = None
@@ -155,7 +155,7 @@ def label_borders():
                         else:
                             tmp = control_dict['x1']
                             tmp2 = int(event.xdata)
-                            if tmp > tmp2:
+                            if tmp > tmp2:   # make sure x1 is in the left: but the third double click always compared with x1(x2 is ignored)
                                 control_dict['x1'] = tmp2
                                 control_dict['x2'] = tmp
                             else:
