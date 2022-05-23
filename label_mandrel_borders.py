@@ -25,8 +25,10 @@ def _get_num_entries(labels):
 
 
 def _load_image(folder, image):
+    image_record = image
     loaded = False
     while not loaded:
+        ### Problem: always shows 'Error loading...' 2022.05.23
         try:
             image = cv2.imread(os.path.join(
                 PATH_IMAGES, folder, image + '.png'))
@@ -34,8 +36,12 @@ def _load_image(folder, image):
             loaded = True
         except:
             loaded = False
-            print('{}: Error loading image - retrying..'.format(datetime.now()))
+            print('{}: Error loading image - retrying..'.format(datetime.now())) 
+            print('The number of error image is {}'.format(image_record))
             time.sleep(1)
+
+        if image is None:
+            return None
     return image
 
 
@@ -84,6 +90,9 @@ def label_borders():
                 continue
             image_counter += 1
             image = _load_image(folder, image_nr)   # one folder each time 
+            ### For IO device error to the image to be loaded  2022.05.23
+            if image is None:
+                continue
             control_dict['finished'] = False
             control_dict['skip'] = False
             control_dict['x1'] = None
