@@ -36,6 +36,9 @@ def _load_image(folder, image_path):
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             loaded = True
         except:
+            global image_labeled
+            if not image_labeled:
+                raise RuntimeError()
             loaded = False
             print('{}: Error loading image ({}({}) - retrying..'.format(datetime.now(), folder, image_path)) 
             time.sleep(1)
@@ -74,6 +77,7 @@ def update_labels(labels, control_dict):
 labels = None
 image_counter = 0
 starting = None
+image_labeled = False
 
 
 def label_borders():
@@ -86,6 +90,7 @@ def label_borders():
 
     index = 0
     control_dict = dict()
+    global image_labeled
     for folder in labels.keys():
         for image_nr in labels[folder].keys():   # the name/number of image
             index += 1
@@ -156,6 +161,8 @@ def label_borders():
                             control_dict['finished'] = True
                             control_dict['x1'] = None
                             control_dict['x2'] = None
+                            global image_labeled
+                            image_labeled = True
                     elif event.key == 'f':   # always change the x2, not the latest double clicked => I should choose x1 first
                         plt.close()
                         if control_dict['x2'] is not None:
