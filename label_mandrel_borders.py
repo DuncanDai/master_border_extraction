@@ -24,22 +24,24 @@ def _get_num_entries(labels):
     ])
 
 
-def _load_image(folder, image):
-    image_record = image
+def _load_image(folder, image_path):
     loaded = False
+    error_counter = 0
     while not loaded:
         ### Problem: always shows 'Error loading...' 
         ### cv2.cvtColor() returns None  2022.05.23
         try:
             image = cv2.imread(os.path.join(
-                PATH_IMAGES, folder, image + '.png'))
+                PATH_IMAGES, folder, image_path + '.png'))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             loaded = True
         except:
             loaded = False
-            print('{}: Error loading image - retrying..'.format(datetime.now())) 
-            print('The number of error image is {}'.format(image_record))
+            print('{}: Error loading image ({}({}) - retrying..'.format(datetime.now(), folder, image_path)) 
             time.sleep(1)
+            error_counter += 1
+            if error_counter > 10:
+                raise RuntimeError()
 
         if image is None:
             return None
@@ -89,8 +91,11 @@ def label_borders():
             index += 1
             if labels[folder][image_nr] is not None:
                 continue
+            try:
+                image = _load_image(folder, image_nr)   # one folder each time 
+            except RuntimeError:
+                continue #skip broken image
             image_counter += 1
-            image = _load_image(folder, image_nr)   # one folder each time 
             ### For IO device error to the image to be loaded  2022.05.23
             if image is None:
                 continue
