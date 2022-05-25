@@ -28,26 +28,23 @@ def _load_image(folder, image_path):
     loaded = False
     error_counter = 0
     while not loaded:
-        ### Problem: always shows 'Error loading...' 
-        ### cv2.cvtColor() returns None  2022.05.23
+        ### BUG-broken image: cv2.cvtColor() returns None  2022.05.23
         try:
             image = cv2.imread(os.path.join(
                 PATH_IMAGES, folder, image_path + '.png'))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             loaded = True
         except:
-            global image_labeled
+            global image_labeled   # skip the begining broken images
             if not image_labeled:
                 raise RuntimeError()
             loaded = False
             print('{}: Error loading image ({}({}) - retrying..'.format(datetime.now(), folder, image_path)) 
             time.sleep(1)
             error_counter += 1
-            if error_counter > 10:
+            if error_counter > 5:
                 raise RuntimeError()
 
-        if image is None:
-            return None
     return image
 
 
@@ -94,16 +91,17 @@ def label_borders():
     for folder in labels.keys():
         for image_nr in labels[folder].keys():   # the name/number of image
             index += 1
-            if labels[folder][image_nr] is not None:
+            if labels[folder][image_nr] is not None:   # skip the already labeled images
                 continue
             try:
                 image = _load_image(folder, image_nr)   # one folder each time 
             except RuntimeError:
-                continue #skip broken image
+                continue   #skip broken image
+            else:   ### when return is None  2022.05.23
+                if image is None:
+                    continue   #skip broken image
             image_counter += 1
-            ### For IO device error to the image to be loaded  2022.05.23
-            if image is None:
-                continue
+            
             control_dict['finished'] = False
             control_dict['skip'] = False
             control_dict['x1'] = None
