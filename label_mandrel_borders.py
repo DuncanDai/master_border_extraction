@@ -155,6 +155,7 @@ def label_borders():
                             pass
                         else:
                             plt.close()
+                            save_dict(labels)
                             labels = update_labels(labels, control_dict)
                             control_dict['finished'] = True
                             control_dict['x1'] = None
