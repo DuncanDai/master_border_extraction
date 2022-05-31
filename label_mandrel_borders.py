@@ -9,8 +9,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 PATH_LABELS_FILE = 'labels_reduced.json'
-PATH_IMAGES = '\\\\os.lsdf.kit.edu\\itiv-projects\\Stents4Tomorrow\\Data\\2022-04-28\\Data\\Images'  # TODO
-
+### Original network driver
+# PATH_IMAGES = '\\\\os.lsdf.kit.edu\\itiv-projects\\Stents4Tomorrow\\Data\\2022-04-28\\Data\\Images'  # TODO
+### Copied in the local disk in Ubuntu
+PATH_IMAGES = '/media/stein/hdd1/Image'
 
 def _get_labels():
     with open(PATH_LABELS_FILE, 'r') as f:
@@ -44,7 +46,6 @@ def _load_image(folder, image_path):
             error_counter += 1
             if error_counter > 5:
                 raise RuntimeError()
-
     return image
 
 
@@ -156,6 +157,7 @@ def label_borders():
                         else:
                             plt.close()
                             labels = update_labels(labels, control_dict)
+                            save_dict(labels)
                             control_dict['finished'] = True
                             control_dict['x1'] = None
                             control_dict['x2'] = None
