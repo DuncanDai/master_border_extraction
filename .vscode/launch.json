@@ -6,7 +6,7 @@
     "configurations": [
 
         {
-            "name": "Python: Current File",
+            "name": "Python3",
             "type": "python",
             "request": "launch",
             "python": "/usr/bin/python3",
