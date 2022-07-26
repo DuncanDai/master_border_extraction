@@ -9,7 +9,7 @@
             "name": "Python3",
             "type": "python",
             "request": "launch",
-            "python": "/usr/bin/python3",
+            "python": "python3",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true

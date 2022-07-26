@@ -2,6 +2,7 @@
 import os 
 from shutil import copy
 
+# env: ubuntu
 old_path = r'/media/dinggen/hdd1/Image'
 new_path = r'/home/dinggen/Documents/Proj_KITMA/kitma/images'
 # new_path = r'smb://192.168.1.102/d/My_Data/me_Docs/Masterarbeit/images' # different platform: error

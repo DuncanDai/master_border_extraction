@@ -9,9 +9,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 PATH_LABELS_FILE = 'labels_reduced.json'
-### Original network driver
+
+### Original network driver (env: windows)
 # PATH_IMAGES = '\\\\os.lsdf.kit.edu\\itiv-projects\\Stents4Tomorrow\\Data\\2022-04-28\\Data\\Images'  # TODO
-### Copied in the local disk in Ubuntu
+### Copied in the local disk (env: Ubuntu)
+# env: ubuntu
 PATH_IMAGES = '/media/stein/hdd1/Image'
 
 def _get_labels():
