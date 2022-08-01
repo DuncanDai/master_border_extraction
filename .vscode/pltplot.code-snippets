@@ -1,0 +1,28 @@
+{
+	"pltplot": {
+		"prefix": "pltplot",
+		"body": [
+			"plt.figure(num=, figsize=(30, 60))",
+			"plt.subplots_adjust(wspace=0.4, hspace=0.6)",
+			"plt.subplot(1, 3, 1)",
+			"plt.title('')",
+			"plt.imshow(, cmap='gray')",
+			"",
+			"plt.subplot(1, 3, 2)",
+			"plt.title('')",
+			"plt.imshow(, cmap='gray')",
+			"",
+			"plt.subplot(1, 3, 3)",
+			"plt.title('')",
+			"plt.imshow(, cmap='gray')",
+			"",
+			"$0"
+		],
+		"description": "plot template"
+	}
+}
+
+
+
+
+

@@ -1,0 +1,17 @@
+{
+	"plot_cv": {
+		"prefix": "plot_cv",
+		"body": [
+			"cv2.namedWindow('', cv2.WINDOW_NORMAL)",
+			"cv2.imshow('', )",
+			"",
+			"# waiting for key event",
+			"cv2.waitKey(0)",
+			"# destroying all windows",
+			"cv2.destroyAllWindows()",
+			"",
+			"$0"
+		],
+		"description": "plot template"
+	}
+}
