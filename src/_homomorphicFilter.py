@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+# absolute path
 PATH_IMAGE = 'D:\\My_Data\\me_Docs\\Masterarbeit\\master_border_extraction\\images\\test1.png'
 
 def homomorphic_filter(src, d0=10, gamma_h=2.5, gamma_l=0.5, c=1):
