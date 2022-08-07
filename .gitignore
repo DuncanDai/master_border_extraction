@@ -1,6 +1,6 @@
 # unwanted files
 desktop.ini
-.vscode/
-data/output/
-images
-kitma
+/.vscode/
+/data/output/
+/images/
+/kitma/
