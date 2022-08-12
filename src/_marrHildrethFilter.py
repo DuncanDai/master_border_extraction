@@ -14,14 +14,15 @@ from mpl_toolkits.mplot3d import Axes3D
 
 
 def edgesMarrHildreth(img, sigma):
+    """finds the edges using MarrHildreth edge detection method...
+    
+    Args:
+        @im: input image
+        @sigma: sigma is the std-deviation and refers to the spread of gaussian
+    
+    Returns: a binary edge image...
     """
-            finds the edges using MarrHildreth edge detection method...
-            :param im : input image
-            :param sigma : sigma is the std-deviation and refers to the spread of gaussian
-            :return:
-            a binary edge image...
-    """
-    size = int(2*(np.ceil(3*sigma))+1)
+    size = int(2 * (np.ceil(3*sigma)) + 1)
 
     x, y = np.meshgrid(np.arange(-size/2+1, size/2+1),
                        np.arange(-size/2+1, size/2+1))
